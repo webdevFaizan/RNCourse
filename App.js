@@ -4,20 +4,21 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
   return (
+    // The style element is not supported in all elements, in View component, it is acceptable, plus we could add inline style just like react in these components. By writing style = {{margin : 23}}
     <View style={styles.container}>
       {/* The style object is created as a form of JS object which will be used to pass to the View component to give it style. */}
       {/* If we add the string "Hello World" without the Text component then this will throw an error */}
-      <View>
+      <View style={styles.container}>
         <Text>Hello World</Text>
-      </View>
-      <View>
+        <Text style={{margin: 14, borderColor: 'black', borderWidth: 2, padding: 14}}>This is an extra text</Text>
+        {/* Notice here the border could not be put like that of the vanilla CSS i.e., border : '2px solid red' */}
         <Button
         onPress={null}
         title="Learn More"
         color="#743234"
         accessibilityLabel="Learn more about this purple button"
-        />
-      </View>
+        />      
+      </View>      
       <StatusBar style="auto" />
     </View>
   );

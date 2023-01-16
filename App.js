@@ -37,7 +37,13 @@ export default function App() {
   };
   
   function addGoalHandler () {
-    setCourseGoals([...courseGoals, enteredGoalText]);
+    // setCourseGoals([...courseGoals, enteredGoalText]);   //This is not a recommended method to update the new state, if the new state depends on the previous state.
+    //IMPORTANT :  The ABOVE ONE is an inefficient code, as we are taking the old list, spreading it then adding a new list and then changing the state. This seems very inefficient because of adding in O(1) by just pushing, we are actually adding in O(N)
+    
+    // DOUBT AND RESEARCH : How is the below code better and more efficient than the above code?
+    setCourseGoals(currentCourseGoals => [...currentCourseGoals, enteredGoalText]); //This is recommended by the react docs, directly changing the value of the State is not recommended, this should be done using function call.
+
+
   };
   
 
@@ -48,7 +54,12 @@ export default function App() {
         <Button onPress={addGoalHandler} title='Add Goal'/>
       </View>
       <View style={{flex : 5}}>
-        {courseGoals.map((goal)=><Text key={goal}>{goal}</Text>)}
+        {courseGoals.map((goal)=>
+        <View style={styles.goalItem} key={goal}>
+          {/* IMPORTANT : Since the style element is applied to the View Component, there is an important difference between the actual Cascading Style Sheets and this CSS like JS codes. In here, the style of View is not going to be applied to the children component, and the child component is Text. This is why in order to have specific color of the Texts we need to give it separate color. */}
+          <Text style={styles.goalText}>{goal}</Text>
+        </View>
+       )}
       </View>
     </View>
   );
@@ -86,5 +97,16 @@ const styles = StyleSheet.create({
   },
   goalsContainer : {
     flex : 5
+  },
+  goalItem : {
+    margin : 8,
+    padding : 8,
+    borderRadius :6,
+    backgroundColor : '#5e0acc',
+    color : 'white',  //IMPORTANT : This property is applied to the View element, This color element does not have any effect on the child elements like the view elements, so we need to write down the color property separately.
+    
+  },
+  goalText : {
+    color : 'white'
   }
 });

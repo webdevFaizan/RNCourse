@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 //Module 1 -
 // export default function App() {
@@ -54,12 +54,14 @@ export default function App() {
         <Button onPress={addGoalHandler} title='Add Goal'/>
       </View>
       <View style={{flex : 5}}>
+        <ScrollView>
         {courseGoals.map((goal)=>
         <View style={styles.goalItem} key={goal}>
           {/* IMPORTANT : Since the style element is applied to the View Component, there is an important difference between the actual Cascading Style Sheets and this CSS like JS codes. In here, the style of View is not going to be applied to the children component, and the child component is Text. This is why in order to have specific color of the Texts we need to give it separate color. */}
           <Text style={styles.goalText}>{goal}</Text>
         </View>
        )}
+       </ScrollView>
       </View>
     </View>
   );
@@ -67,6 +69,7 @@ export default function App() {
 
 
 // These stylesheet objects are used in the case of React Native applications since there are no option for CSS, since the DOM is not present int the case of Native Applications.
+// IMPORANT : The following styling object might look like CSS, but there are certain differences, there is no inheritance and no cascading.
 const styles = StyleSheet.create({
   container: {
     // flex: 1,

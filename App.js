@@ -41,7 +41,24 @@ import GoalInput from './component/GoalInput';
 export default function App() {
 
   const [enteredGoalText, setEnteredGoalText] = useState('');
-  const [courseGoals, setCourseGoals] = useState([]);
+  const [courseGoals, setCourseGoals] = useState([
+    {data : 'One', id:1},
+    {data : 'Two', id:2},   
+    {data : 'Three', id:3},
+    {data : 'Four', id:4},
+    {data : 'Five', id:5},
+    // {data : 'Six', id:6},
+    // {data : 'Seven', id:7},
+    // {data : 'Eight', id:8},
+    // {data : 'Nine', id:9},
+    // {data : 'Ten', id:10},
+    // {data : 'Eleven', id:11},
+    // {data : 'Twelve', id:12},
+    // {data : 'Thirteen', id:13},
+    // {data : 'Fourteen', id:14},
+    // {data : 'Fifteen', id:15},
+    // {data : 'Sixteen', id:16},   
+  ]);
 
   function goalInputHandler (enteredText) {
     // console.log(enteredText);
@@ -74,27 +91,38 @@ export default function App() {
 
   const [modalButtonState, setModalButtonState] = useState(false);
   function modalButtonPressed (){
+    setEnteredGoalText('');
     setModalButtonState(!modalButtonState);
   }
   
 
   return (
     <View style={styles.appContainer}>
+        {
+          courseGoals.length===0 && 
+          <View style={{justifyContent : 'center', alignItems: 'center', marginBottom : 49}}>
+            <Text style = {styles.noListContainer} >Please Add Goals to your list and touch on the list to delete Goals</Text>
+          </View>
+        } 
       <Button title='ADD GOAL' onPress={modalButtonPressed}></Button>
         <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler} enteredGoalText={enteredGoalText} modalButtonState={modalButtonState} modalButtonPressed={modalButtonPressed}/>      
-      <View style={{flex : 5}}>
-        <FlatList
-        alwaysBounceVertical= {true}    //DOUBT : This does not seem to work
-        data={courseGoals}  //IMPORTANT : This shows which data should be rendered, but the renderItem prop tells FlatList, how the data should be rendered. And keep this in mind, this behaviour of renderItem is what is making only the visible partial list rendered, but at the same time, the next items from the long list will only be rendered when we scroll furthur.
-        renderItem={(itemObject)=>{ //One thing to note here is that this itemObject is actually an Object, not a string element. So to extract the data we need to use itemObject.item.data 
-          return (
-            <GoalItems itemObject={itemObject} onDeleteItem={deleteGoalHandler} id={itemObject.item.id}/>
-          )
-        }}
-        keyExtractor = {(item,index)=>{return item.id}} //VERY IMPORTANT, PRIORITY : This keyExtractor property is kept separate in the case of FlatList because the key that is coming from the stream of data could be from APIs, and APIS has their own set of rules about what should be the key, so we are extracting it separately.
-        // The reason why this keyExtractor is kept separate, is that each View item from the list will require the unique list item.
-        />
-      </View>
+      
+        {
+        courseGoals.length!==0 &&
+            <View style={{flex : 5}}>
+            <FlatList
+            alwaysBounceVertical= {true}    //DOUBT : This does not seem to work
+            data={courseGoals}  //IMPORTANT : This shows which data should be rendered, but the renderItem prop tells FlatList, how the data should be rendered. And keep this in mind, this behaviour of renderItem is what is making only the visible partial list rendered, but at the same time, the next items from the long list will only be rendered when we scroll furthur.
+            renderItem={(itemObject)=>{ //One thing to note here is that this itemObject is actually an Object, not a string element. So to extract the data we need to use itemObject.item.data 
+              return (
+                <GoalItems itemObject={itemObject} onDeleteItem={deleteGoalHandler} id={itemObject.item.id}/>
+              )
+            }}
+            keyExtractor = {(item,index)=>{return item.id}} //VERY IMPORTANT, PRIORITY : This keyExtractor property is kept separate in the case of FlatList because the key that is coming from the stream of data could be from APIs, and APIS has their own set of rules about what should be the key, so we are extracting it separately.
+            // The reason why this keyExtractor is kept separate, is that each View item from the list will require the unique list item.
+            />
+          </View>
+        }             
     </View>
   );
 }
@@ -112,9 +140,21 @@ const styles = StyleSheet.create({
   appContainer : {
     flex : 1,
     paddingTop : 50,
-    paddingHorizontal : 16
+    paddingHorizontal : 16,
+    justifyContent : 'center'
   },
   goalsContainer : {
     flex : 5
+  },
+  noListContainer : {    
+    // flex : 5,
+    fontWeight : 'Bold',
+    fontSize : 33,
+    color : 'red',
+    textAlign : 'center'
   }
 });
+
+
+
+

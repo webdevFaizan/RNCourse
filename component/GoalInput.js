@@ -1,4 +1,5 @@
 import { StyleSheet, View, TextInput, Button, Modal } from "react-native";
+//IMPORTANT : The button component uses the pressable component internally, which means that we could build the custom Button by default by creating the pressable component and customizing it.
 function GoalInput(props){
     return (
         <Modal visible={props.modalButtonState} animationType={'slide'}>

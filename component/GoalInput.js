@@ -5,7 +5,7 @@ function GoalInput(props){
             <TextInput 
             style={styles.textInput} 
             onChangeText={props.goalInputHandler} 
-            value={props.enteredGoalText}
+            value={props.enteredGoalText}       //This addition of value will create the two way binding, which means when the state has to be changed to empty string then this will help us reflect back.
             placeholder='Enter your goal'
             />
             <Button onPress={props.addGoalHandler} title='Add Goal'/>      
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   textInput : {
     borderColor : '#A19C9B',
     borderWidth : 2,
+    borderRadius : 8,
     padding : 3,
     paddingLeft : 13,
     width : '80%',

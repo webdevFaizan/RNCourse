@@ -44,7 +44,7 @@ export default function App() {
 
   function goalInputHandler (enteredText) {
     // console.log(enteredText);
-    setEnteredGoalText(enteredText);    
+    setEnteredGoalText(enteredText);
   };
   
   function addGoalHandler () {
@@ -56,20 +56,29 @@ export default function App() {
     setEnteredGoalText('');
 
   };
+
+  // This list item deleting functionality is added on the App component because the App component is having the state variable array with different list items, so we could change the state easily from here.
+  function deleteGoalHandler (id) {
+    console.log('Deleted');
+    // IMPORTANT : The current state of the element depends on the previous state of the elements, then this should not be done directly, but only by using the function. currentCourseGoals consists of the current value of the state, filter method will take each and every element and return only those goals that are not matching from the id. Thus deleting that id which is matching the passed id.
+    setCourseGoals(currentCourseGoals=>{
+      return (
+        currentCourseGoals.filter((goal)=>goal.id!==id)   //The currentCourseGoals have total list of all the elements, and this will be passed in the filter function individually and then only those elements are passed that satisfies the condition.
+      )
+    })
+  }
   
 
   return (
-    <View style={styles.appContainer}>
-      
-        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler} enteredGoalText={enteredGoalText}/>
-      
+    <View style={styles.appContainer}>      
+        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler} enteredGoalText={enteredGoalText}/>      
       <View style={{flex : 5}}>
         <FlatList
         alwaysBounceVertical= {true}    //DOUBT : This does not seem to work
         data={courseGoals}  //IMPORTANT : This shows which data should be rendered, but the renderItem prop tells FlatList, how the data should be rendered. And keep this in mind, this behaviour of renderItem is what is making only the visible partial list rendered, but at the same time, the next items from the long list will only be rendered when we scroll furthur.
         renderItem={(itemObject)=>{ //One thing to note here is that this itemObject is actually an Object, not a string element. So to extract the data we need to use itemObject.item.data 
           return (
-            <GoalItems itemObject={itemObject}/>
+            <GoalItems itemObject={itemObject} onDeleteItem={deleteGoalHandler} id={itemObject.item.id}/>
           )
         }}
         keyExtractor = {(item,index)=>{return item.id}} //VERY IMPORTANT, PRIORITY : This keyExtractor property is kept separate in the case of FlatList because the key that is coming from the stream of data could be from APIs, and APIS has their own set of rules about what should be the key, so we are extracting it separately.

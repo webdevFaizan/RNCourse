@@ -1,9 +1,12 @@
-import { StyleSheet, View, TextInput, Button, Modal } from "react-native";
+import { StyleSheet, View, TextInput, Button, Modal, Image } from 'react-native';
 //IMPORTANT : The button component uses the pressable component internally, which means that we could build the custom Button by default by creating the pressable component and customizing it.
 function GoalInput(props){
     return (
         <Modal visible={props.modalButtonState} animationType={'slide'}>
             <View style={{...styles.inputContainer, flex : 1}}>
+                <View style={{alignItems : 'center'}}>
+                    <Image style={styles.imageStyle} source={require('../assets/images/goal2.png')}/>
+                </View>
                 <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.goalInputHandler} 
@@ -34,19 +37,24 @@ const styles = StyleSheet.create({
       borderBottomWidth : 2,
       borderBottomColor : '#A19C9B'
     },
-  textInput : {
-    borderColor : '#A19C9B',
-    borderWidth : 2,
-    borderRadius : 8,
-    padding : 3,
-    paddingLeft : 13,
-    width : '80%',
-    marginRight : 4    
-  },
-  buttonContainer : {
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    alignItems : 'center',
-    // margin : 10
+    imageStyle : {
+        height : 180,
+        objectFit : 'fill',
+        width : 180,
+        marginBottom : 20
+      },
+    textInput : {
+        borderColor : '#A19C9B',
+        borderWidth : 2,
+        borderRadius : 8,
+        padding : 3,
+        paddingLeft : 13,
+        width : '80%',
+        marginRight : 4    
+    },
+    buttonContainer : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        alignItems : 'center'    
   }
 })

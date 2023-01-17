@@ -8,7 +8,7 @@ import {
   TextInput,
   ScrollView,
   FlatList,    //This flatList is of high importance, since internally this will make the list of large items very much optimised. And the loading will be done only when we scroll near to them, and this loading will be done lazily. Not rendering the whole list during the first render, this will make the app much more optimised. This is how the infinite scroll of facebook and instagram work.
-  
+  Image
  } from 'react-native';
 
 import GoalItems from './component/GoalItems';
@@ -98,6 +98,9 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
+      {
+        courseGoals.length===0 && <View style ={{alignItems : 'center'}}><Image style= {styles.imageStyle} source={require('../RNCourse/assets/images/goal.png')}/></View>
+      }
         {
           courseGoals.length===0 && 
           <View style={{justifyContent : 'center', alignItems: 'center', marginBottom : 49}}>
@@ -136,6 +139,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  imageStyle : {
+    height : 300,
+    objectFit : 'fill',
+    width : 400
   },
   appContainer : {
     flex : 1,

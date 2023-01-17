@@ -44,7 +44,7 @@ export default function App() {
 
   function goalInputHandler (enteredText) {
     // console.log(enteredText);
-    setEnteredGoalText(enteredText);
+    setEnteredGoalText(enteredText);    
   };
   
   function addGoalHandler () {
@@ -53,7 +53,7 @@ export default function App() {
     
     // DOUBT AND RESEARCH : How is the below code better and more efficient than the above code?
     setCourseGoals(currentCourseGoals => [...currentCourseGoals, {data : enteredGoalText, id : Math.random().toString()}]); //This is recommended by the react docs, directly changing the value of the State is not recommended, this should be done using function call.
-
+    setEnteredGoalText('');
 
   };
   
@@ -61,7 +61,7 @@ export default function App() {
   return (
     <View style={styles.appContainer}>
       
-        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler}/>
+        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler} enteredGoalText={enteredGoalText}/>
       
       <View style={{flex : 5}}>
         <FlatList

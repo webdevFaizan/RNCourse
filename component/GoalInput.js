@@ -2,7 +2,12 @@ import { StyleSheet, View, TextInput, Button } from "react-native";
 function GoalInput(props){
     return (
         <View style={{...styles.inputContainer, flex : 1}}>
-            <TextInput style={styles.textInput} onChangeText={props.goalInputHandler} placeholder='Enter your goal'/>
+            <TextInput 
+            style={styles.textInput} 
+            onChangeText={props.goalInputHandler} 
+            value={props.enteredGoalText}
+            placeholder='Enter your goal'
+            />
             <Button onPress={props.addGoalHandler} title='Add Goal'/>      
         </View>
     )

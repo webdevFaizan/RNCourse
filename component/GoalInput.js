@@ -1,15 +1,24 @@
-import { StyleSheet, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, TextInput, Button, Modal } from "react-native";
 function GoalInput(props){
     return (
-        <View style={{...styles.inputContainer, flex : 1}}>
-            <TextInput 
-            style={styles.textInput} 
-            onChangeText={props.goalInputHandler} 
-            value={props.enteredGoalText}       //This addition of value will create the two way binding, which means when the state has to be changed to empty string then this will help us reflect back.
-            placeholder='Enter your goal'
-            />
-            <Button onPress={props.addGoalHandler} title='Add Goal'/>      
-        </View>
+        <Modal visible={props.modalButtonState} animationType={'slide'}>
+            <View style={{...styles.inputContainer, flex : 1}}>
+                <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.goalInputHandler} 
+                value={props.enteredGoalText}       //This addition of value will create the two way binding, which means when the state has to be changed to empty string then this will help us reflect back.
+                placeholder='Enter your goal'
+                />                
+                <View style= {styles.buttonContainer}>
+                    <View style={{margin : 10}}>
+                        <Button onPress={props.addGoalHandler} title='ADD GOAL'/>      
+                    </View>
+                    <View style={{margin : 10}}>
+                        <Button title="CANCEL" onPress={props.modalButtonPressed}/>
+                    </View>
+                </View>
+            </View>
+        </Modal>        
     )
 }
 
@@ -17,8 +26,8 @@ export default GoalInput;
 
 const styles = StyleSheet.create({        
     inputContainer : {    
-      flexDirection : 'row',
-      justifyContent : 'space-between',
+      flexDirection : 'column',
+      justifyContent : 'center',
       alignItems : 'center',
       marginBottom : 20,
       borderBottomWidth : 2,
@@ -32,5 +41,11 @@ const styles = StyleSheet.create({
     paddingLeft : 13,
     width : '80%',
     marginRight : 4    
+  },
+  buttonContainer : {
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+    alignItems : 'center',
+    // margin : 10
   }
 })

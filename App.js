@@ -7,7 +7,8 @@ import {
   Button,
   TextInput,
   ScrollView,
-  FlatList    //This flatList is of high importance, since internally this will make the list of large items very much optimised. And the loading will be done only when we scroll near to them, and this loading will be done lazily. Not rendering the whole list during the first render, this will make the app much more optimised. This is how the infinite scroll of facebook and instagram work.
+  FlatList,    //This flatList is of high importance, since internally this will make the list of large items very much optimised. And the loading will be done only when we scroll near to them, and this loading will be done lazily. Not rendering the whole list during the first render, this will make the app much more optimised. This is how the infinite scroll of facebook and instagram work.
+  
  } from 'react-native';
 
 import GoalItems from './component/GoalItems';
@@ -57,7 +58,7 @@ export default function App() {
       setCourseGoals(currentCourseGoals => [...currentCourseGoals, {data : enteredGoalText, id : Math.random().toString()}]);
     } //This is recommended by the react docs, directly changing the value of the State is not recommended, this should be done using function call.
     setEnteredGoalText('');
-
+    setModalButtonState(false);
   };
 
   // This list item deleting functionality is added on the App component because the App component is having the state variable array with different list items, so we could change the state easily from here.
@@ -70,11 +71,17 @@ export default function App() {
       )
     })
   }
+
+  const [modalButtonState, setModalButtonState] = useState(false);
+  function modalButtonPressed (){
+    setModalButtonState(!modalButtonState);
+  }
   
 
   return (
-    <View style={styles.appContainer}>      
-        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler} enteredGoalText={enteredGoalText}/>      
+    <View style={styles.appContainer}>
+      <Button title='ADD GOAL' onPress={modalButtonPressed}></Button>
+        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler} enteredGoalText={enteredGoalText} modalButtonState={modalButtonState} modalButtonPressed={modalButtonPressed}/>      
       <View style={{flex : 5}}>
         <FlatList
         alwaysBounceVertical= {true}    //DOUBT : This does not seem to work

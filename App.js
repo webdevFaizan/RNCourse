@@ -1,4 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar';    //This is a special component that will be useful in changing the color of the status bar, since the background color could be dark or it could be light.
+
 import { useState } from 'react';
 import { 
   StyleSheet,
@@ -97,6 +98,10 @@ export default function App() {
   
 
   return (
+    // We had to add this wrapping fragment, because at the root level of jsx, we cannot have siblings, which are StatusBar and the View.
+    <>
+    <StatusBar  style='dark'/>      
+        {/* IMPORTANT : The color of the status bar will be decided from the color of the backgroud, since the color of background is in the global object, so we have to change the value of the StatusBar manually in the Style component. */}
     <View style={styles.appContainer}>
       {
         courseGoals.length===0 && <View style ={{alignItems : 'center'}}><Image style= {styles.imageStyle} source={require('../RNCourse/assets/images/goal.png')}/></View>
@@ -127,6 +132,7 @@ export default function App() {
           </View>
         }             
     </View>
+    </>
   );
 }
 

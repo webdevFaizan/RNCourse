@@ -11,6 +11,7 @@ import {
  } from 'react-native';
 
 import GoalItems from './component/GoalItems';
+import GoalInput from './component/GoalInput';
 
 //Module 1 -
 // export default function App() {
@@ -59,10 +60,9 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <View style={{...styles.inputContainer, flex : 1}}>
-        <TextInput style={styles.textInput} onChangeText={goalInputHandler} placeholder='Enter your goal'/>
-        <Button onPress={addGoalHandler} title='Add Goal'/>
-      </View>
+      
+        <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler}/>
+      
       <View style={{flex : 5}}>
         <FlatList
         alwaysBounceVertical= {true}    //DOUBT : This does not seem to work
@@ -94,22 +94,6 @@ const styles = StyleSheet.create({
     flex : 1,
     paddingTop : 50,
     paddingHorizontal : 16
-  },
-  inputContainer : {    
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    alignItems : 'center',
-    marginBottom : 20,
-    borderBottomWidth : 2,
-    borderBottomColor : '#A19C9B'
-  },
-  textInput : {
-    borderColor : '#A19C9B',
-    borderWidth : 2,
-    padding : 3,
-    paddingLeft : 13,
-    width : '80%',
-    marginRight : 4    
   },
   goalsContainer : {
     flex : 5

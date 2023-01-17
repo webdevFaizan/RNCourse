@@ -52,7 +52,10 @@ export default function App() {
     //IMPORTANT :  The ABOVE ONE is an inefficient code, as we are taking the old list, spreading it then adding a new list and then changing the state. This seems very inefficient because of adding in O(1) by just pushing, we are actually adding in O(N)
     
     // DOUBT AND RESEARCH : How is the below code better and more efficient than the above code?
-    setCourseGoals(currentCourseGoals => [...currentCourseGoals, {data : enteredGoalText, id : Math.random().toString()}]); //This is recommended by the react docs, directly changing the value of the State is not recommended, this should be done using function call.
+    if(enteredGoalText!=='')
+    {
+      setCourseGoals(currentCourseGoals => [...currentCourseGoals, {data : enteredGoalText, id : Math.random().toString()}]);
+    } //This is recommended by the react docs, directly changing the value of the State is not recommended, this should be done using function call.
     setEnteredGoalText('');
 
   };
